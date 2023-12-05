@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"l2/mux/database/client"
 	"l2/mux/entities"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -23,6 +24,7 @@ func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	newBook := entities.Book{}
 	json.NewDecoder(r.Body).Decode(&newBook)
+	log.Print(newBook)
 	client.UpdateBook(params["id"], newBook)
 }
 

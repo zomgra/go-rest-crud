@@ -5,5 +5,5 @@ type Book struct {
 	Title    string  `json:title`
 	Author   *Author `json:author`
 	AuthorId int     `json:author`
-	Isnb     string  `json:isnb`
+	Isbn     string  `json:isbn`
 }
