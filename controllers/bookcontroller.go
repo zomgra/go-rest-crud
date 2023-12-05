@@ -3,11 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"errors"
+	"l2/mux/database"
 	"l2/mux/entities"
 	"l2/mux/repository"
-	"math/rand"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -24,7 +23,7 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 }
 func GetBooks(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(repository.Books)
+	json.NewEncoder(w).Encode(database.GetAllBooks())
 }
 func UpdateBook(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -48,8 +47,9 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var book entities.Book
 	_ = json.NewDecoder(r.Body).Decode(&book)
-	book.Id = strconv.Itoa(rand.Intn(1000000))
-	repository.Books = append(repository.Books, book) /// TODO: repository: Add func to add in db
+
+	id := database.AddBook(book)
+	json.NewEncoder(w).Encode(id)
 }
 
 func DeleteBook(w http.ResponseWriter, r *http.Request) {
