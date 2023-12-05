@@ -1,8 +1,9 @@
-package database
+package client
 
 import (
 	"database/sql"
 	"fmt"
+	"l2/mux/database"
 	"l2/mux/entities"
 	"log"
 
@@ -14,7 +15,7 @@ import (
 
 var Instance *sql.DB
 
-func CreateConnection(o *DbOptions) {
+func CreateConnection(o *database.DbOptions) {
 	connString := fmt.Sprintf("postgresql://%s:%s@%s/%s?sslmode=disable", o.User, o.Password, o.Addr, o.Database)
 	db, err := sql.Open("postgres", connString)
 	if err != nil {
