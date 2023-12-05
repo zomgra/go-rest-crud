@@ -1,8 +1,8 @@
 package client
 
 import (
-	"l2/mux/database"
-	"l2/mux/entities"
+	"golangCrud/internal/database"
+	"golangCrud/pkg/entities"
 	"log"
 )
 

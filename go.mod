@@ -1,5 +1,4 @@
-module l2/mux
-
+module golangCrud
 go 1.21.3
 
 require (

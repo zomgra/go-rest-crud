@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"l2/mux/database/client"
-	"l2/mux/entities"
+	"golangCrud/internal/database/client"
+	"golangCrud/pkg/entities"
 	"log"
 	"net/http"
 
