@@ -40,7 +40,7 @@ func AddBook(b entities.Book) int {
 	log.Printf("%+v", b)
 	query := `INSERT INTO books (title, isnbn) VALUES($1,$2) RETURNING id`
 	var id int
-	err := Instance.QueryRow(query, b.Title, b.Isnbn).Scan(&id)
+	err := Instance.QueryRow(query, b.Title, b.Isnb).Scan(&id)
 	if err != nil {
 		log.Fatal("problem with insert book: ", err)
 	}
@@ -55,13 +55,39 @@ func GetAllBooks() []entities.Book {
 	var books []entities.Book
 	for rows.Next() {
 		var book entities.Book
-		rows.Scan(&book.Id, &book.Title, &book.AuthorId, &book.Isnbn)
-		log.Print(book)
+		rows.Scan(&book.Id, &book.Title, &book.AuthorId, &book.Isnb)
 		if book.Id == "" {
 			break
 		}
-		log.Print(books)
 		books = append(books, book)
 	}
 	return books
+}
+func UpdateBook(id string, b entities.Book) {
+	query := `UPDATE books
+	SET title=$2, isnbn=$3
+	WHERE id=$1`
+	log.Print(b)
+	_, err := Instance.Exec(query, id, b.Title, b.Isnb)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func DeleteBook(id string) {
+	query := `DELETE FROM books WHERE id=$1`
+	_, err := Instance.Exec(query, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func GetBookById(id string) entities.Book {
+	query := `SELECT id, title, isnbn FROM books WHERE id=$1 LIMIT 1`
+	var book entities.Book
+	err := Instance.QueryRow(query, id).Scan(&book.Id, &book.Title, &book.Isnb)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return book
 }

@@ -11,20 +11,20 @@ func InitialTestData() {
 			Title: "T1",
 			Author: &entities.Author{
 				FirstName: "F1", LastName: "L1"},
-			Isnbn: "fu738273728",
+			Isnb: "fu738273728",
 		},
 		entities.Book{
 			Id:    "2",
 			Title: "T2",
 			Author: &entities.Author{
 				FirstName: "F2", LastName: "L2"},
-			Isnbn: "jekd3298289748932",
+			Isnb: "jekd3298289748932",
 		},
 		entities.Book{
 			Id:    "3",
 			Title: "T3",
 			Author: &entities.Author{
 				FirstName: "F3", LastName: "L3"},
-			Isnbn: "lsls28291",
+			Isnb: "lsls28291",
 		})
 }
